@@ -1,0 +1,23 @@
+textwindow.backgroundcolor="black"
+TextWindow.ForegroundColor="white" 'user colour
+TextWindow.Clear()
+While response <>"quit"
+  response=textwindow.Read()
+  response=text.ConvertToLowerCase(response)
+  Program. Delay(1000)
+  TextWindow. ForegroundColor="green" 'computer colour
+ If Text.IsSubText(response,"hello") Then
+    TextWindow.Writeline("Hello there you")
+  ElseIf Text.IsSubText(response, "goodbye") then
+    TextWindow.Writeline("Oh, was I boring you?")
+ ElseIf Text.IsSubText(response, "the tech train") then
+   TextWindow.Writeline ("That's my favourite channel! Have you subscribed yet")
+  ElseIf Text.IsSubText(response,"justin") then
+    TextWindow.Writeline("He's my favourite YouTuber!")
+  elseif Text.IsSubText(response, "zul") then
+    TextWindow.WriteLine("Diatu hensem bodo")
+    elseif Text.IsSubText(response, "umur berapa") then
+      TextWindow.WriteLine("saya umur 20 tahun")
+  EndIf
+  TextWindow.ForegroundColor="white" 'user colour
+EndWhile

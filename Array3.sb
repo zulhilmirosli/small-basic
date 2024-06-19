@@ -1,0 +1,179 @@
+'Author : MUHAMMAD ZULHILMI BIN ROSLI
+'Matric Number : S61807
+'Date : 7/12/2021
+'Find average score for each student
+'Sort according to the average -susuna menurun(besar ke kecil)
+
+'TextWindow.BackgroundColor="darkcyan"
+TextWindow.ForegroundColor="white"
+
+pelajar[1][1]="Chan"
+pelajar[2][1]="Syukur"
+pelajar[3][1]="Azim"
+pelajar[4][1]="Azira"
+pelajar[5][1]="Adam"
+pelajar[6][1]="Tine"
+pelajar[7][1]="Faris"
+
+'UMUR
+pelajar[1][2]=19
+pelajar[2][2]=20
+pelajar[3][2]=21
+pelajar[4][2]=19
+pelajar[5][2]=20
+pelajar[6][2]=21
+pelajar[7][2]=19
+
+'CHEMISTRY
+pelajar[1][3]=78
+pelajar[2][3]=60
+pelajar[3][3]=70
+pelajar[4][3]=89
+pelajar[5][3]=58
+pelajar[6][3]=65
+pelajar[7][3]=90
+
+'PHYSIC
+pelajar[1][4]=83
+pelajar[2][4]=80
+pelajar[3][4]=77
+pelajar[4][4]=76
+pelajar[5][4]=58
+pelajar[6][4]=90
+pelajar[7][4]=80
+
+'BIOLOGY
+pelajar[1][5]=40
+pelajar[2][5]=55
+pelajar[3][5]=62
+pelajar[4][5]=70
+pelajar[5][5]=83
+pelajar[6][5]=55
+pelajar[7][5]=79
+
+'ADDMATH
+pelajar[1][6]=66
+pelajar[2][6]=45
+pelajar[3][6]=60
+pelajar[4][6]=70
+pelajar[5][6]=80
+pelajar[6][6]=64
+pelajar[7][6]=76
+
+For i=1 To 7 Step 1
+  For j=1 To 1
+    'Display Name
+    TextWindow.ForegroundColor="darkcyan"
+    TextWindow.WriteLine(" Student "+i +":" +pelajar[i][j])
+    endfor
+    For j=2 To 2
+      'Display age
+      TextWindow.ForegroundColor="yellow"
+      TextWindow.WriteLine(" Age  : " +pelajar[i][j])
+    endfor    
+    For j=3 To 6
+      'Display mark
+      TextWindow.ForegroundColor="white"
+  TextWindow.WriteLine(" Mark : " +pelajar[i][j])
+      endfor
+  TextWindow.WriteLine("")
+  EndFor
+  
+ TextWindow.WriteLine(" ***************************************************************************")  
+
+'Calculate total sum mark for every student
+
+  Sum1=0
+  Total=0
+  For x=1 To 1 Step 1
+    For y=3 To 6 Step 1
+      Sum1=Sum1+pelajar[x][y]
+      Total=Total+1
+    EndFor
+  EndFor
+  
+   Sum2=0
+  For x=2 To 2 
+    For y=3 To 6 Step 1
+      Sum2=Sum2+pelajar[x][y]
+    EndFor
+  EndFor
+  
+    Sum3=0
+  For x=3 To 3 
+    For y=3 To 6 Step 1
+      Sum3=Sum3+pelajar[x][y]
+    EndFor
+  EndFor
+  
+    Sum4=0
+  For x=4 To 4 
+    For y=3 To 6 Step 1
+      Sum4=Sum4+pelajar[x][y]
+    EndFor
+  EndFor
+  
+    Sum5=0
+  For x=5 To 5 
+    For y=3 To 6 Step 1
+      Sum5=Sum5+pelajar[x][y]
+    EndFor
+  EndFor
+  
+    Sum6=0
+  For x=6 To 6 
+    For y=3 To 6 Step 1
+      Sum6=Sum6+pelajar[x][y]
+    EndFor
+  EndFor
+  
+    Sum7=0
+  For x=7 To 7 
+    For y=3 To 6 Step 1
+      Sum7=Sum7+pelajar[x][y]
+    EndFor
+  EndFor
+  
+  'Average mark for each student
+  pelajar[1][7]=Sum1/Total
+  pelajar[2][7]=Sum2/Total
+  pelajar[3][7]=Sum3/Total
+  pelajar[4][7]=Sum4/Total
+  pelajar[5][7]=Sum5/Total
+  pelajar[6][7]=Sum6/Total
+  pelajar[7][7]=Sum7/Total
+  
+  For x=1 To 7
+    For j=7 To 7
+      TextWindow.WriteLine(" Average mark for student "+x +": " +pelajar[x][j])
+      endfor
+  EndFor
+  
+  'Conditon to sort average from highest to lowest
+  
+  For i=1 To 7 
+    for j=7 To 7 
+    For x =i+1 To 7
+      If pelajar[i][j]<pelajar[x][j] Then
+      temp = pelajar[i][j]
+      pelajar[i][j]=pelajar[x][j]
+      pelajar[x][j]=temp
+      EndIf
+    EndFor 
+  EndFor
+EndFor
+
+'Display output after been sort to descending order
+
+TextWindow.WriteLine("")
+TextWindow.WriteLine("***************************************************************************")
+TextWindow.ForegroundColor="darkcyan"
+TextWindow.WriteLine(" Student average mark after sort by descdending order")
+TextWindow.ForegroundColor="white"
+    For i=1 To 7
+      For j=7 To 7
+        TextWindow.WriteLine(" Student "+i +" " +pelajar[i][j])
+      EndFor
+    EndFor
+    
+  

@@ -1,0 +1,33 @@
+'Author : MUHAMMAD ZULHILMI BIN ROSLI
+'Date : 26/10/2021
+TextWindow.BackgroundColor="Darkcyan"
+TextWindow.ForegroundColor="Black"
+
+'Determine the Prime Number for any positive integer ranger <=500
+'Prime number that has exactly 2 factors only which is 1 and itself
+
+TextWindow.Write("Please insert number : ")
+num1=TextWindow.ReadNumber()
+
+TextWindow.WriteLine("The number you enter is : "+num1)
+
+divisor=2
+isPrime=1
+
+while (divisor<num1 And isPrime=1)
+  If Math.Remainder(num1,divisor)=0 then
+    isPrime=0
+    divisor=divisor+1
+  Else
+    divisor=divisor+1
+    EndIf
+EndWhile
+    
+    If isPrime=1 then
+      TextWindow.WriteLine("The number you enter is Prime Number")
+    Else
+      TextWindow.WriteLine("The number is not prime")
+      endif
+  
+ 
+    

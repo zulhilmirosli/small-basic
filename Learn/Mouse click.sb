@@ -1,0 +1,18 @@
+GraphicsWindow.pencolor="blue"
+GraphicsWindow.PenWidth=5
+GraphicsWindow.BackgroundColor="black"
+GraphicsWindow. MouseDown=MouseClicked
+GraphicsWindow.MouseMove=MouseMoved
+Sub MouseClicked
+  lastx=graphicswindow.MouseX
+  lasty=graphicswindow.MouseY
+EndSub
+Sub MouseMoved
+x=GraphicsWindow. MouseX
+  y=GraphicsWindow.MouseY
+  If Mouse.IsLeftButtonDown Then
+    GraphicsWindow.DrawLine(lastx,lasty,x,y)
+  endif
+lastx=x
+lasty=y 
+EndSub

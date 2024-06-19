@@ -1,0 +1,14 @@
+Textwindow.Writeline("Please enter a word:")
+word=TextWindow.Read()
+wordlength=text.GetLength(word)
+revword=""
+For i=wordlength To 1 Step -1
+  revword=revword + Text.GetSubText(word,i,1)
+EndFor
+If word=revword Then
+ Textwindow.Writeline (word +" is a palindrome!")
+Else
+  TextWindow.Writeline(word +" is not a palindrome.")
+EndIf
+                               
+                               

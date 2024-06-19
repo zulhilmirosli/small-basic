@@ -1,0 +1,121 @@
+'Author : Muhammad Zulhilmi Bin Rosli
+'No. Matric :   S61807
+'FInal Exam ( CSF3023) 14/2/2022)
+
+'Question A
+filePath = ("C:\ZUL\Small Basic\Final")
+readFile_ItemData = File.ReadContents(filePath + "\ ITEMDATA.txt")
+For i=1 To File.ReadLine(filePath + "\ITEMDATA.txt",1)
+  line1 = i
+  itemdata[i] = File.ReadLine(filePath + "\ITEMDATA.txt",i+1)
+  TextWindow.WriteLine(ITEMDATA[i]["itemName"])
+  TextWindow.WriteLine(ITEMDATA[i]["itemCode"])
+  TextWindow.WriteLine(ITEMDATA[i]["stockQty"])
+  TextWindow.WriteLine(ITEMDATA[i]["priceUnit"])
+Endfor
+
+filePath = ("C:\ZUL\Small Basic\Final")
+readFile_SalesData = File.ReadContents(filePath + "\SALESDATA.txt")
+
+For i=1 To File.ReadLine(filePath + "\SALESDATA.txt",1)
+  line2 = i
+  salesdata[i] = File.ReadLine(filePath + "\SALESDATA.txt",i+1)
+  TextWindow.WriteLine(SALESDATA[i]["salesDate"])
+  TextWindow.WriteLine(SALESDATA[i]["itemCode"])
+  TextWindow.WriteLine(SALESDATA[i]["salesQty"])
+  
+Endfor
+
+TextWindow.WriteLine(" Question B (Sorting Item Code)")
+TextWindow.WriteLine("")
+TextWindow.WriteLine(" | ItemName | ItemCode | StockQty | PriceUnit |")
+For i=1 To line1
+  TextWindow.WriteLine(" | "+ITEMDATA[i]["itemName"]+"     | "+ITEMDATA[i]["itemCode"]+"     | "+ITEMDATA[i]["stockQty"]+"      | "+ITEMDATA[i]["priceUnit"]+"      | ")
+EndFor
+
+TextWindow.WriteLine("")
+TextWindow.WriteLine(" Question C (Sorting Date)")
+TextWindow.WriteLine("")
+TextWindow.WriteLine(" | SalesDate | ItemCode   | SalesQty   |")
+TextWindow.WriteLine(" |___________|____________|____________|")
+For x=1 To line2
+  TextWindow.WriteLine(" | "+SALESDATA[x]["salesDate"]+"  | "+SALESDATA[x]["itemCode"]+"       | "+SALESDATA[x]["salesQty"]+"          | ")
+EndFor
+
+total = 0
+d=0
+
+'FOR DAILY
+
+TextWindow.WriteLine("")
+TextWindow.WriteLine(" Question D")
+For j=1 To line2
+  If(day[d] <> salesData[j]["day"]) Then
+    d = d+1
+  EndIf
+  day[d] = salesData[j]["day"]
+  total[d]["daily"] = total[d]["daily"] + salesData[j]["salesQty"]
+  For i=1 To line1
+    if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+      total[d]["priceDaily"] = total[d]["priceDaily"] + ( salesData[j]["salesQty"] * itemdata[i]["priceUnit"] )
+    EndIf
+  EndFor
+EndFor
+
+For x=1 To d
+  TextWindow.WriteLine(" In day "+x+" , total sales is RM"+total[x]["priceDaily"]+" with total item sales "+total[x]["daily"]+" item")
+EndFor
+
+
+change = 0
+'BALANCE
+
+For i=1 To line1
+  itemData[i]["temp"] = itemdata[i]["stockQty"]
+EndFor
+
+For j=1 To line2
+  For i=1 To line1
+    If ( salesData[j]["itemcode"] = itemData[i]["itemCode"] ) then
+      salesData[j]["balance"] = itemData[i]["temp"]
+      salesData[j]["balance"] = salesData[j]["balance"] - salesData[j]["salesQty"]
+      itemData[i]["temp"] = salesData[j]["balance"]
+    EndIf
+  EndFor
+EndFor
+
+'CURRENT BALANCE 
+c=0
+change[c]["itemCode"] = 0
+For j=line2 To 1 Step-1
+  For g=1 To line2
+    If(change[g]["itemCode"] = salesData[j]["itemCode"]) Then
+      Goto here
+    EndIf
+  EndFor
+  c = c+1
+  change[c]["itemCode"] = salesData[j]["itemCode"]
+  change[c]["balance"] = salesData[j]["balance"]
+  change[c]["SalesDate"] = salesData[j]["SalesDate"]
+  here:
+EndFor  
+
+TextWindow.WriteLine("")
+TextWindow.WriteLine(" QUESTION E")
+
+For x=1 To line1
+  For i=1 To line1
+    If(change[x]["itemCode"] = itemdata[i]["itemCode"]) Then
+      TextWindow.WriteLine(" "+itemdata[i]["itemName"]+"("+change[x]["itemCode"]+") has balance of "+change[x]["balance"])  
+    EndIf
+  EndFor
+EndFor
+
+TextWindow.WriteLine("")
+TextWindow.WriteLine("Question F ")
+  TextWindow.Write(" Enter Item Code : ")
+  Option = TextWindow.Read()
+  
+  If (Option=ITEMDATA[i]["itemCode"]) Then
+  EndIf
+  

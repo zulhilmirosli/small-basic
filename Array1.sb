@@ -1,0 +1,62 @@
+'Author : MUHAMMAD ZULHILMI BIN ROSLI
+'Matric Number : S61807
+'Date : 11/11/2021
+TextWindow.BackgroundColor="Darkcyan"
+TextWindow.ForegroundColor="White"
+
+name[1]="Chan"
+name[2]="Syukur"
+name[3]="Azim"
+name[4]="Azira"
+name[5]="Adam"
+name[6]="Tine"
+name[7]="Faris"
+
+age[1]=30
+age[2]=23
+age[3]=32
+age[4]=35
+age[5]=36
+age[6]=21
+age[7]=19
+
+mark[1]=78
+mark[2]=69
+mark[3]=70
+mark[4]=89
+mark[5]=58
+mark[6]=65
+mark[7]=90
+
+For i=1 To Array.GetItemCount(name)
+  TextWindow.WriteLine(mark[i])
+EndFor
+
+TextWindow.WriteLine("**************************************************************")
+
+For i=1 To Array.GetItemCount(name)
+  For j =i+1 To Array.GetItemCount(name)
+    If mark[i]<mark[j] Then
+      temp = mark[i]
+      mark[i]=mark[j]
+      mark[j]=temp
+      
+      'Untuk nama
+      temp1=name[i]
+      name[i]=name[j]
+      name[j]=temp1
+      
+      'Untuk umur
+      temp2=age[i]
+      age[i]=age[j]
+      age[j]=temp2
+      
+    EndIf
+  EndFor
+EndFor
+
+For i=1 To Array.GetItemCount(name)
+  TextWindow.WriteLine(name[i] +" " +age[i] +" years old")
+  TextWindow.WriteLine("Mark : " +mark[i])
+  TextWindow.WriteLine("")
+  endfor

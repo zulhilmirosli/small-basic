@@ -1,0 +1,84 @@
+'Author : MUHAMMAD ZULHILMI BIN ROSLI
+'Num Matric : S61807
+
+'TextWindow.BackgroundColor="Black"
+TextWindow.ForegroundColor="yellow"
+
+TextWindow.write("Enter the row dimension of the matrix: ")   'Ask user to input row
+a = TextWindow.Read()
+
+TextWindow.write("Enter the column dimension of the matrix: ") 'Ask user to input column
+b = TextWindow.Read()
+
+TextWindow.WriteLine("")
+
+TextWindow.ForegroundColor="cyan"
+For i=1 To a Step 1  'Get  random number for matrcies A
+  For j=1 To b Step 1
+   matrixA[i][j] = Math.GetRandomNumber(10) 
+    Textwindow.Write("| " +matrixA[i][j] + "  ")
+  EndFor
+  TextWindow.WriteLine("")
+EndFor
+TextWindow.WriteLine("")
+
+TextWindow.ForegroundColor="yellow"
+TextWindow.write("Enter the row dimension of the matrix: ")
+a = TextWindow.Read()
+
+TextWindow.write("Enter the column dimension of the matrix: ")
+b = TextWindow.Read()
+
+TextWindow.WriteLine("")
+
+TextWindow.ForegroundColor="cyan"
+For i=1 To a Step 1   'Get  random number for matrcies B
+  For j=1 To b Step 1
+   matrixB[i][j] = Math.GetRandomNumber(10) 
+    Textwindow.Write("| " +matrixB[i][j] + "  ")
+  EndFor
+  TextWindow.WriteLine("")
+EndFor
+
+TextWindow.WriteLine("")
+
+TextWindow.ForegroundColor="yellow"
+TextWindow.Writeline("Addition for matrices") 'Addition operation for both matrices
+TextWindow.Writeline("")
+
+TextWindow.ForegroundColor="cyan"
+For i=1 To a 
+  For j = 1 To b 
+    Add[i][j] = matrixA[i][j]+matrixB[i][j]
+    Textwindow.Write("| " +Add[i][j] + "  ")
+  EndFor
+  TextWindow.WriteLine("")
+EndFor
+TextWindow.WriteLine("")
+
+TextWindow.ForegroundColor="yellow"
+TextWindow.Writeline("Subtraction for matrices") 'Subtraction operation for both matrices
+TextWindow.Writeline("")
+TextWindow.ForegroundColor="cyan"
+For i=1 To a 
+  For j = 1 To b 
+    Subt[i][j] = matrixA[i][j]-matrixB[i][j]
+    Textwindow.Write("| " +Subt[i][j] + "  ")
+  EndFor
+  TextWindow.WriteLine("")
+EndFor
+
+TextWindow.ForegroundColor="yellow"
+TextWindow.WriteLine("")
+TextWindow.Writeline("Multiplication for matrices") 'Multiplication operation for both matrices
+TextWindow.ForegroundColor="cyan"
+For i=1 To a
+  For j=1 To b
+    For k=1 To a
+      Mult[i][j]=Mult[i][j] + matrixA[i][k]*matrixB[k][j]
+    endfor 'end of k loop
+    TextWindow.Write(Mult[i][j] +"  ")
+  EndFor 'end of j loop
+  TextWindow.WriteLine("")
+EndFor
+

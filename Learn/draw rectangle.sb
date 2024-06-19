@@ -1,0 +1,13 @@
+'GraphicsWindow.left=100
+GraphicsWindow.width=500
+GraphicsWindow.height=500
+GraphicsWindow.BackgroundColor="black"
+GraphicsWindow. MouseDown=DrawRectangle
+Sub DrawRectangle
+  left=Math.GetRandomNumber(500)
+  top=Math.GetRandomNumber(500)
+ width=Math.GetRandomNumber(250)
+  height=Math.GetRandomNumber(250)
+ GraphicsWindow.PenColor=GraphicsWindow.GetRandomColor()
+ GraphicsWindow.drawrectangle(left,top,width,height)
+EndSub

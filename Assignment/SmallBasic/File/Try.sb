@@ -1,0 +1,151 @@
+'Author : Muhammad Zulhilmi Bin Rosli
+'No. Matric :   S61807
+
+TextWindow.ForegroundColor="darkcyan"
+
+For n=1 To 2 'repeat 2 times for 2 differents file
+  If n=1 Then 
+    For i = 1 To 5
+      str[n][i]=file.ReadLine("C:\\ZUL\\Small Basic\\Assignment\\SmallBasic\\File\\itemdata.txt",i)
+      length[n][i]=Text.GetLength(str[n][i])
+      'TextWindow.WriteLine(str[n][i])
+      'TextWindow.WriteLine(length[n][i]) 'length of the the text
+    EndFor
+  Else
+    For i=1 To 8
+      str[n][i]=file.ReadLine("C:\\ZUL\\Small Basic\\Assignment\\SmallBasic\\File\\salesdata.txt",i)
+      length[n][i]=Text.GetLength(str[n][i])
+      'TextWindow.WriteLine(str[n][i])
+      'TextWindow.WriteLine(length[n][i]) 'length of the the text
+    EndFor
+  EndIf
+EndFor
+
+t=1
+
+For n=1 To 2
+  If n=1 Then
+    For i=1 to 5
+      For j=1 To length[n][i]
+        char=Text.GetSubText(str[n][i],j,1)
+        code=text.GetCharacterCode(char)
+        'TextWindow.WriteLine(char+" has a code of " +code) 'nak tahu nilai code in character
+        
+        If j=length[n][i] then
+          line=Text.Append(line,char)
+          linesp[t]=line
+          t=t+1
+          line=""
+        EndIf
+        
+        If code<> 44 And j<>length[n][i] then
+          line=text.Append(line,char)
+        ElseIf code=44 then
+          
+          If Text.GetLength(line)<=7 then
+            line=line+"   "
+          EndIf
+          
+          linesp[t]=line
+          line=""
+          t=t+1
+        EndIf
+      endfor
+    endfor
+    'TextWindow.WriteLine(" ")
+  Else
+    t=1
+    For i=1 To 8
+      For j=1 To length[n][i]
+        char=text.GetSubText(str[n][i],j,1)
+        code=Text.GetCharacterCode(char)
+        If j=length[n][i] Then
+          line=text.Append(line,char)
+          linesp1[t]=line
+          line=""
+          t=t+1
+        EndIf
+        
+        If code<>44 And j<>length[n][i] Then
+          line = Text.Append(line,char)
+        ElseIf code=44 then
+          linesp1[t]=line
+          line=""
+          t=t+1
+        EndIf
+      EndFor
+    EndFor
+  EndIf
+EndFor
+'TextWindow.WriteLine(" ")
+counter=1
+
+For t=1 To 5 
+  For k=1 To 4
+    If k=1 Then
+      Item[t]["ItemName"]=linesp[counter]
+    ElseIf k=2 then
+      Item[t]["ItemCode"]=linesp[counter]
+    elseif k=3 Then
+      Item[t]["StockQty"]=linesp[counter]
+    ElseIf k=4 then
+      Item[t]["PriceUnit"]=linesp[counter]
+    EndIf
+    counter=counter+1
+  EndFor
+EndFor
+
+TextWindow.WriteLine("*************************************************************************")
+TextWindow.WriteLine("Item Name       Item Code       Stock QUantity       Price Unit")
+TextWindow.WriteLine("*************************************************************************")
+For t=1 To 5 
+  TextWindow.WriteLine(" "+Item[t]["ItemName"]+"         "+Item[t]["ItemCode"]+"            "+Item[t]["StockQty"]+"              "+Item[t]["PriceUnit"])
+EndFor
+
+TextWindow.WriteLine("*************************************************************************")
+TextWindow.WriteLine(" ")
+flag=1
+For t=1 To 8
+  For k=1 To 3 
+    if k=1 Then
+      sales[t]["SalesDate"]=linesp1[flag]
+    ElseIf k=2 then
+      sales[t]["ItemCode"]=linesp1[flag]
+    ElseIf k=3 then
+      sales[t]["SalesQty"]=linesp1[flag]
+    EndIf
+    flag=flag+1
+  EndFor
+EndFor
+TextWindow.WriteLine("*************************************************************************")
+TextWindow.WriteLine("Sales Date       Item Code       SalesQty  ")
+TextWindow.WriteLine("*************************************************************************")
+For t=1 To 8 
+  TextWindow.WriteLine(" "+sales[t]["SalesDate"]+"        "+sales[t]["ItemCode"]+"             "+sales[t]["SalesQty"])
+EndFor
+
+question_5()
+
+Sub question_5
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 5")
+  For j=1 To 8
+    For i=1 To 5 Step 1
+      If ( sales[j]["itemcode"] = item[i]["itemCode"]) then
+      TextWindow.WriteLine(sales[j]["itemcode"] +" = " +item[i]["itemCode"])
+     endif
+      
+      If( sales[j]["itemcode"] = item[i]["itemCode"] and (sales[j]["SalesQty"] > item[i]["stockQty"]*0.1)) Then
+        TextWindow.WriteLine(" The item "+item[i]["itemName"]+"("+sales[j]["itemcode"]+") has critical stock left")
+      EndIf
+    EndFor
+  EndFor
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+  

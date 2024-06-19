@@ -1,0 +1,9 @@
+8
+salesDate=01/10/21;itemCode=I001;salesQty=2
+salesDate=01/10/21;itemcode=I003;salesQty=1.5
+salesDate=03/10/21;itemCode=I001;salesQty=5
+salesDate=05/10/21;itemCode=B002;salesQty=4
+salesDate=10/10/21;itemCode=B002;salesQty=2
+salesDate=11/10/21;itemCode=I001;salesQty=3
+salesDate=12/10/21;itemCode=I002;salesQty=3
+salesDate=13/10/21;itemCode=I003;salesQty=0.5

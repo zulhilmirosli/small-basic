@@ -1,0 +1,2 @@
+1
+salesDate=//;itemCode=I001;salesQty=2;

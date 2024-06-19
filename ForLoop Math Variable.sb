@@ -1,0 +1,38 @@
+'Author : MUHAMMAD ZULHILMI BIN ROSLI
+'Matric Number : S61807
+'Date : 26/10/2021
+TextWindow.BackgroundColor="Darkcyan"
+TextWindow.ForegroundColor="Black"
+
+'Determine the Prime Number for any positive integer ranger <=500
+
+'FACTS
+'Prime number is number that has exactly 2 factors only which is 1 and itself
+'The only even prime number is 2. All other even numbers can be divided by 2.
+'If the sum of a number's digits is a multiple of 3, that number can be divided by 3.
+'No prime number greater than 5 ends in a 5. Any number greater than 5 that ends in a 5 can be divided by 5.
+'Zero and 1 are not considered prime numbers.
+'Except for 0 and 1, a number is either a prime number or a composite number. A composite number is defined as any number, greater than 1, that is not prime.
+
+TextWindow.Write("Please enter your number : ")
+no1 = TextWindow.Read()
+
+'Declare Variable
+'j ialah divisor
+
+baki=1
+
+For j=2 To no1 step 1
+  If (j<no1 And baki=1) then
+  if Math.Remainder(no1,j)=0 Then
+    baki=0
+    EndIf
+    EndIf
+  EndFor
+  If baki = 0 Then
+    TextWindow.WriteLine("The number is not prime number")
+  Else
+    TextWindow.WriteLine("The number is prime number")
+  EndIf
+  
+    

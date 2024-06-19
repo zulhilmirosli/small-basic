@@ -1,0 +1,54 @@
+TextWindow.ForegroundColor="yellow"
+TextWindow.WriteLine("Random number: ")
+For i=1 to 250 
+  array[i]=math.GetRandomNumber(250)'+temp
+  TextWindow.WriteLine("array["+i+"] = "+array[i])
+EndFor
+
+length = Array.GetItemCount(array)
+SortArray()
+Sub SortArray
+  For n = 1 To length - 1
+    For m = n + 1 To length
+      If array[n] > array[m] Then
+        temp = array[n]
+        array[n] = array[m]
+        array[m] = temp
+      EndIf
+    EndFor
+  EndFor
+EndSub
+
+TextWindow.WriteLine("")
+TextWindow.ForegroundColor="Cyan"
+
+TextWindow.WriteLine("After been sort : ")
+For i=1 to 250 
+  TextWindow.WriteLine("array["+i+"] = "+array[i])
+EndFor
+
+TextWindow.WriteLine("")
+TextWindow.Write("Enter a number to search according to the number specified above only: ")
+num = TextWindow.ReadNumber()
+
+count=0
+
+For i =1 To 250 
+  If num = array[i] Then
+    TextWindow.WriteLine(num + " entered is in index "+i)
+    exit()
+  EndIf
+  If num<>array[i] then
+    count=count+1
+  EndIf
+  
+EndFor
+
+Sub exit
+  TextWindow.WriteLine("To search the number " +num +" the program has to loop " +count +" times")
+EndSub
+
+  
+TextWindow.WriteLine("")
+TextWindow.WriteLine("To program has been loop "+count +" times to search the number")
+

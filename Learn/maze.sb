@@ -1,0 +1,38 @@
+GraphicsWindow.Show()
+GraphicsWindow.KeyDown=KeyPressed
+PlayerX=150
+PlayerY=150
+
+DrawPlayer()
+
+Sub DrawPlayer
+  GraphicsWindow.BrushColor="Red"
+  GraphicsWindow.FillRectangle(PlayerX,PlayerY, 50,50)
+EndSub
+
+Sub RemovePlayer
+  GraphicsWindow.BrushColor="White"
+  GraphicsWindow.FillRectangle(PlayerX,PlayerY, 50,50)
+EndSub
+
+Sub KeyPressed
+ If Graphicswindow. Lastkey="Up" Then
+    RemovePlayer()
+    PlayerY=PlayerY-50
+    DrawPlayer()
+  ElseIf Graphicswindow.LastKey="Down" then
+   RemovePlayer ()
+    PlayerY=PlayerY+50
+    DrawPlayer ()
+    elseif Graphicswindow.LastKey="Left" then
+    Removeplayer ()
+    PlayerX=PlayerX-50
+    DrawPlayer()
+    
+  elseif GraphicsWindow.lastkey="Right" then
+    RemovePlayer()
+    PlayerX=PlayerX+50
+    DrawPlayer()
+    
+    EndIf
+EndSub

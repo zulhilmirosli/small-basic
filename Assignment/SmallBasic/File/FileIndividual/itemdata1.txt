@@ -1,0 +1,6 @@
+5
+itemName=Rice;itemCode=B001;stockQty=200;priceunit=4.50
+itemName=Fish;itemcode=I001;stockQty=400;priceunit=13.00
+itemName=Anchovies;itemCode=I002;stockQty=150;priceunit=25.00
+itemName=Crab;itemCode=I003;stockQty=200;priceunit=40.00
+itemName=Onion;itemcode=B002;stockQty=500;priceunit=8.00

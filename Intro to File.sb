@@ -1,0 +1,18 @@
+TextWindow.BackgroundColor="white"
+TextWindow.ForegroundColor="darkcyan"
+
+len = Text.GetLength(str1)
+TextWindow.WriteLine(str1)
+TextWindow.WriteLine("This file has " + len + " characters. ")
+
+len2 = Text.GetLength(str2)
+TextWindow.WriteLine(str2)
+TextWindow.WriteLine("This file has " + len2+ " characters. ")
+
+For N=1 To len
+  ch= Text.GetSubText(str, N, 1)
+  code = Text.GetCharacterCode(ch)
+  TextWindow.WriteLine(code + " " +ch)
+EndFor
+
+

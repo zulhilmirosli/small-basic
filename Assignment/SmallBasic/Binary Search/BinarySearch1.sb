@@ -1,0 +1,53 @@
+TextWindow.ForegroundColor="cyan"
+
+temp=0
+For i=1 To 42
+  Array[i] = temp+3
+  TextWindow.WriteLine("  Array{"+i+"] = " +Array[i])
+  temp=temp+3
+EndFor
+
+TextWindow.WriteLine("")
+TextWindow.Write("Insert number to search : ")
+search=TextWindow.Read()
+
+length=Array.GetItemCount(Array)
+
+For i=1 To length
+  
+  findIndex()
+  
+  
+EndFor
+
+Sub findIndex
+  low=0
+  high=length
+  found=""
+  
+  While low <= high
+    mid = Math.Round((low + high) / 2)
+    
+    If search < array[mid] Then
+      high = mid - 1
+      
+    ElseIf search > array[mid] Then
+      low = mid + 1
+      
+    ElseIf search = array[mid] Then
+      found = "True"
+      'TextWindow.WriteLine("Found at "+mid)
+      
+      low=high+1
+    EndIf
+  EndWhile
+EndSub
+
+If found <> "True" Then
+  TextWindow.WriteLine(search + " has not been found")
+EndIf
+
+If found Then
+  TextWindow.WriteLine(search + " has been found at array["+mid+"]")
+EndIf
+TextWindow.WriteLine("")

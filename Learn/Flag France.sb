@@ -1,0 +1,13 @@
+
+GraphicsWindow.BrushColor="Blue"
+GraphicsWindow. FillRectangle(100,100,200,300) 'x,y,  length, height
+
+GraphicsWindow.BrushColor="red"
+GraphicsWindow.FillRectangle(500,100,200,300)
+
+GraphicsWindow.BrushColor="white"
+GraphicsWindow.FillRectangle(300,100,200,300)
+
+GraphicsWindow.PenColor="Black"
+GraphicsWindow.PenWidth=3
+GraphicsWindow.DrawRectangle(100,100,600,300)

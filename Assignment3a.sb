@@ -1,0 +1,20 @@
+'Author : MUHAMMAD ZULHILMI BIN ROSLI
+'Matric Number : S61807
+'Date : 5/11/2021
+TextWindow.BackgroundColor="Darkcyan"
+TextWindow.ForegroundColor="Black"
+
+rate=4
+Fee=15000
+
+TextWindow.WriteLine("The current tuition fee is " +Fee)
+TextWindow.WriteLine("Tuition rate per year is " +rate)
+TextWindow.WriteLine("")
+TextWindow.WriteLine("Tuition fee for next 10 years : ")
+
+For x=1 To 10
+  Increase=(rate/100)*Fee
+  Fee=Fee+Increase
+  TextWindow.WriteLine("Tuition fee for year : " +x +" is " +Math.Round(Fee))
+ EndFor 
+  

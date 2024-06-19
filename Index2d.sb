@@ -1,0 +1,35 @@
+'Author : MUHAMMAD ZULHILMI BIN ROSLI
+'Num Matric : S61807
+
+score["Scott"]["Math"] = 92
+score["Scott"]["Science"] = 90
+score["Scott"]["Combat"] = 87
+score["Jean"]["Math"] = 85
+score["Jean"]["Science"] = 82
+score["Jean"]["Combat"] = 92
+score["Logan"]["Math"] = 85
+score["Logan"]["Science"] = 80
+score["Logan"]["Combat"] = 99
+
+For i=1 to 3
+repeat()
+endfor
+
+Sub repeat
+  TextWindow.Write("Enter student name : ")
+  name = TextWindow.Read()
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("Name  Math  Science  Combat")
+
+    TextWindow.WriteLine(name +"  " +score[name]["Math"] +"    " +score[name]["Science"] +"       " +score[name]["Combat"])
+    TextWindow.WriteLine("") 
+    
+    sum = score[name]["Math"]
+    sum = sum + score[name]["Science"]
+    sum = sum + score[name]["Combat"]
+    avg = Math.Round(sum/3)
+    TextWindow.WriteLine(name + " average score = " + avg)
+    TextWindow.WriteLine("")
+    EndSub
+
+  

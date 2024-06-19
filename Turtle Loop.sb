@@ -1,0 +1,15 @@
+GraphicsWindow.Show()
+GraphicsWindow.PenColor="Darkcyan"
+GraphicsWindow.PenWidth=3
+Turtle.Speed=10
+
+For pattern=1 To 36
+  
+  For sides = 1 To 6
+    Turtle.Move(100)
+    Turtle.Turn(360/6)
+  EndFor
+  
+  Turtle.Turn(10)
+  EndFor
+    

@@ -1,0 +1,695 @@
+TextWindow.ForegroundColor = "cyan"
+
+While(endTheProgram <> "True")
+  loadItemData()
+  loadSalesData()
+  findBalance()
+  
+  TextWindow.WriteLine("                      Welcome to Main Menu     ")
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" __________________________________________________________")
+  TextWindow.WriteLine(" |   Codes   |              Type of Option                 |")
+  TextWindow.WriteLine(" |___________|_____________________________________________|")
+  TextWindow.WriteLine(" |     A     |  Show current itemData and Sales data       |")
+  TextWindow.WriteLine(" |     B     |  Enter another data for itemFile            |")
+  TextWindow.WriteLine(" |     C     |  Enter another data for salesData           |")
+  TextWindow.WriteLine(" |___________|_____________________________________________|")
+  TextWindow.WriteLine(" |   Codes   |               Question                      |") 
+  TextWindow.WriteLine(" |___________|_____________________________________________|") 
+  TextWindow.WriteLine(" |     1     |  Total sales(daily,weekly, and monthly)     |")
+  TextWindow.WriteLine(" |     2     |  Show high and demand item                  |")
+  TextWindow.WriteLine(" |     3     |  Stock balance for specific date            |")
+  TextWindow.WriteLine(" |     4     |  Current stock balance                      |")
+  TextWindow.WriteLine(" |     5     |  Checking critical stock item               |")
+  TextWindow.WriteLine(" |     6     |  Sales per item(weekly)                     |")
+  TextWindow.WriteLine(" |     7     |  Prediction on future sales                 |")
+  TextWindow.WriteLine(" |     8     |  Average sales each item per month          |")
+  TextWindow.WriteLine(" |     0     |  Exit the program                           |")
+  TextWindow.WriteLine(" |           |                                             |") 
+  TextWindow.WriteLine(" |           |                                             |") 
+  TextWindow.WriteLine(" |           |                                             |") 
+  TextWindow.WriteLine(" |___________|_____________________________________________|")
+  TextWindow.WriteLine(" |   Codes   |  Highly not recommended                     |") 
+  TextWindow.WriteLine(" |___________|_____________________________________________|") 
+  TextWindow.WriteLine(" |     Z     |  Delete all the data                        |")
+  TextWindow.WriteLine(" |___________|_____________________________________________|")
+  
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Choose any option based on the code : ")
+  choose = TextWindow.Read()
+  
+  If(choose = "A" or choose = "a") Then
+    itemAndsalesData() ' SUCCESS
+  elseif(choose = "B" or choose = "b") Then
+    itemDataFile() ' SUCCESS
+  elseif(choose = "C" or choose = "c") Then
+    salesDataFile() ' SUCCESS
+  elseif(choose = 1) Then
+    question_1() ' SUCCESS
+  elseif(choose = 2) Then
+    question_2() 'SUCCESS
+  elseif(choose = 3) Then
+    question_3() ' SUCCESS
+  elseif(choose = 4) Then
+    question_4() 'SUCCESS
+  elseif(choose = 5) Then
+    question_5() 'SUCCESS
+  elseif(choose = 6) Then
+    question_6() 'SUCCESS
+  elseif(choose = 7) Then
+    question_7() 'SUCCESS
+  elseif(choose = 8) Then
+    question_8() ' SUCCESS
+  elseif(choose = 0) Then
+    endTheProgram = "True" 'SUCCESS
+  elseif(choose = "Z" or choose = "z") Then
+    deleteAllFile() ' SUCCESS
+  endif
+  
+endwhile
+
+TextWindow.WriteLine("")
+TextWindow.WriteLine(" Thank you for using our apps")
+TextWindow.WriteLine("")
+TextWindow.Write(" Press ENTER to end the program : ")
+uselessButton = TextWindow.ReadNumber()
+Program.End()
+
+
+'***********************************************************************************************************************************************************************************************
+Sub loadItemData
+  path = Program.Directory
+  readFile_ItemData = File.ReadContents(path + "\ itemData.txt")
+  'length = Text.GetLength(readFile_ItemData)
+  'TextWindow.WriteLine("This file has "+length+" words") 
+  '*******************************************
+  For i=1 To File.ReadLine(path + "\itemData.txt",1)
+    line1 = i
+    itemdata[i] = File.ReadLine(path + "\itemData.txt",i+1)
+    'TextWindow.WriteLine(itemData[i]["itemName"])
+    'TextWindow.WriteLine(itemData[i]["itemCode"])
+    'TextWindow.WriteLine(itemData[i]["stockQty"])
+    'TextWindow.WriteLine(itemData[i]["priceUnit"])
+  Endfor
+  
+EndSub
+
+Sub loadSalesData
+  path = Program.Directory
+  readFile_SalesData = File.ReadContents(path + "\salesData.txt")
+  'length = Text.GetLength(readFile_SalesData)
+  'TextWindow.WriteLine("This file has "+length+" words") 
+  '*******************************************
+  
+  For i=1 To File.ReadLine(path + "\salesData.txt",1)
+    line2 = i
+    salesdata[i] = File.ReadLine(path + "\salesData.txt",i+1)
+    'TextWindow.WriteLine(salesData[i]["day"])
+    'TextWindow.WriteLine(salesData[i]["month"])
+    'TextWindow.WriteLine(salesData[i]["year"])
+    'TextWindow.WriteLine(salesData[i]["salesDate"])
+    'TextWindow.WriteLine(salesData[i]["itemCode"])
+    'TextWindow.WriteLine(salesData[i]["salesQty"])
+    
+  Endfor
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub findBalance
+  convert = 0
+  'BALANCE
+  For i=1 To line1
+    itemData[i]["temp"] = itemdata[i]["stockQty"]
+  EndFor
+  
+  For j=1 To line2
+    For i=1 To line1
+      If ( salesData[j]["itemcode"] = itemData[i]["itemCode"] ) then
+        salesData[j]["balance"] = itemData[i]["temp"]
+        salesData[j]["balance"] = salesData[j]["balance"] - salesData[j]["salesQty"]
+        itemData[i]["temp"] = salesData[j]["balance"]
+      EndIf
+    EndFor
+  EndFor
+  
+  'CURRENT BALANCE 
+  'Pilih 1 je untuk didisplay kan, berbeza dengan question_3, question_4 hanya pakai 1 code untuk 1 kali display je, berdasarkan tarikh yang paling latest  
+  f=0
+  convert[f]["itemCode"] = 0
+  For j=line2 To 1 Step-1
+    For g=1 To line2
+      If(convert[g]["itemCode"] = salesData[j]["itemCode"]) Then
+        Goto here
+      EndIf
+    EndFor
+    f = f+1
+    'convert ni digunakan untuk display barang2 yang berjaya dijual dan setiap item akan didisplay sekali sahaja. Yang tidak dijual atau code item yang sama tidak akan didisplaykan berulang kali
+    convert[f]["itemCode"] = salesData[j]["itemCode"]
+    convert[f]["balance"] = salesData[j]["balance"]
+    convert[f]["SalesDate"] = salesData[j]["SalesDate"]
+    convert[f]["day"] = salesData[j]["day"]
+    convert[f]["month"] = salesData[j]["month"]
+    convert[f]["year"] = salesData[j]["year"]
+    here:
+  EndFor  
+EndSub  
+'***********************************************************************************************************************************************************************************************
+Sub itemAndsalesData 
+  'Display item Data
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("                     Item Data                         ")
+  TextWindow.WriteLine(" _____________________________________________________")
+  TextWindow.WriteLine(" | Unit  | ItemName | ItemCode | StockQty | PriceUnit |")
+  TextWindow.WriteLine(" |_______|__________|__________|__________|___________|")
+  For i=1 To line1
+    TextWindow.WriteLine(" | "+i+"     | "+itemdata[i]["itemName"]+"     | "+itemdata[i]["itemCode"]+"     | "+itemdata[i]["stockQty"]+"      | "+itemdata[i]["priceUnit"]+"      | ")
+  EndFor
+  TextWindow.WriteLine(" |_______|__________|__________|__________|___________|")
+  TextWindow.WriteLine("")
+  
+  'Display sales Data
+  TextWindow.WriteLine("                   Sales Data                         ")
+  TextWindow.WriteLine(" ______________________________________________")
+  TextWindow.WriteLine(" | Unit  | SalesDate | ItemCode   | SalesQty   |")
+  TextWindow.WriteLine(" |_______|___________|____________|____________|")
+  For x=1 To line2
+    TextWindow.WriteLine(" | "+x+"     | "+salesData[x]["salesDate"]+"  | "+salesData[x]["itemCode"]+"       | "+salesData[x]["salesQty"]+"          | ")
+  EndFor
+  TextWindow.WriteLine(" |_______|___________|____________|____________|")
+  TextWindow.WriteLine("")
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub itemDataFile
+  itemData()
+  File.DeleteFile(Program.Directory + "\itemData.txt")
+  File.DeleteFile(Program.Directory + "\itemData(backup).txt")
+  saveItemData()
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+EndSub
+
+Sub itemData
+  line1 = line1 + 1
+  f = line1
+  For j=line1 To f
+    table1()
+    'itemName
+    TextWindow.WriteLine("")
+    TextWindow.Write(" Please enter ItemName : ")
+    itemdata[f]["itemName"] = TextWindow.Read() 
+    table1()
+    TextWindow.WriteLine(" | "+f+"     | "+itemdata[f]["itemName"]+"     |")
+    
+    'iteamCode
+    TextWindow.WriteLine("")
+    TextWindow.Write(" Please enter ItemCode : ")
+    itemdata[f]["itemCode"] = TextWindow.Read() 
+    table1()
+    TextWindow.WriteLine(" | "+f+"     | "+itemdata[f]["itemName"]+"     | "+itemdata[f]["itemCode"]+"     | ")
+    
+    'stockQty
+    TextWindow.WriteLine("")
+    TextWindow.Write(" Please enter StockQty : ")
+    itemdata[f]["stockQty"] = TextWindow.Read() 
+    table1()
+    TextWindow.WriteLine(" | "+f+"     | "+itemdata[f]["itemName"]+"     | "+itemdata[f]["itemCode"]+"     | "+itemdata[f]["stockQty"]+"      | ")
+    
+    'priceUnit
+    TextWindow.WriteLine("")
+    TextWindow.Write(" Please enter PriceUnit : ")
+    itemdata[f]["priceUnit"] = TextWindow.Read() 
+    table1()
+    TextWindow.WriteLine(" | "+f+"     | "+itemdata[f]["itemName"]+"     | "+itemdata[f]["itemCode"]+"     | "+itemdata[f]["stockQty"]+"      | "+itemdata[f]["priceUnit"]+"      | ")
+    
+    'repeat for another unit
+    TextWindow.WriteLine("")
+    TextWindow.Write(" You want to input another unit?(1 for yes and 0 for no) : ")
+    repeat = TextWindow.ReadNumber()
+    
+    If repeat = 1 then
+      f = f+1
+      line1 = line1 + 1
+    EndIf
+    
+    If repeat = 0 Then
+      f = f+1
+      table1()
+      f = f-1
+      TextWindow.WriteLine(" |_______|__________|__________|__________|___________|")
+    EndIf
+  EndFor
+  
+EndSub
+
+Sub table1
+  TextWindow.WriteLine(" _____________________________________________________")
+  TextWindow.WriteLine(" | Unit  | ItemName | ItemCode | StockQty | PriceUnit |")
+  TextWindow.WriteLine(" |_______|__________|__________|__________|___________|")
+  If f <> 1 Then
+    For i=1 To f-1
+      TextWindow.WriteLine(" | "+i+"     | "+itemdata[i]["itemName"]+"     | "+itemdata[i]["itemCode"]+"     | "+itemdata[i]["stockQty"]+"      | "+itemdata[i]["priceUnit"]+"      | ")
+    EndFor
+  EndIf
+EndSub
+
+sub saveItemData
+  File.AppendContents(Program.Directory + "\itemData.txt",line1)
+  File.AppendContents(Program.Directory + "\itemData(backup).txt",line1)
+  For i=1 To f
+    File.AppendContents(Program.Directory + "\itemData.txt",itemdata[i])
+    File.AppendContents(Program.Directory + "\itemData(backup).txt",itemdata[i])
+  EndFor
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub salesDataFile
+  salesData()
+  File.DeleteFile(Program.Directory + "\salesData.txt")
+  File.DeleteFile(Program.Directory + "\salesData(backup).txt")
+  saveSalesData()
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+EndSub
+
+Sub salesData 
+  line2 = line2 + 1
+  j = line2
+  For x=line2 To j
+    table2()
+    'itemName
+    TextWindow.WriteLine("")
+    TextWindow.Writeline(" Please enter Sales Dates(Use format DD/MM/YY) : ")
+    while(salesData[j]["day"] < salesData[j-1]["day"] And salesData[j]["month"] <= salesData[j-1]["month"] Or salesData[j]["year"] < salesData[j-1]["year"])
+      if(salesData[j]["day"] < salesData[j-1]["day"] And salesData[j]["month"] <= salesData[j-1]["month"] Or salesData[j]["year"] < salesData[j-1]["year"]) Then
+        TextWindow.WriteLine("")
+        TextWindow.WriteLine(" The date cannot be lower than previous data")
+        TextWindow.WriteLine("")
+      EndIf
+      TextWindow.Write(" Day : ")
+      salesData[j]["day"] = TextWindow.ReadNumber()
+      TextWindow.Write(" Month : ")
+      salesData[j]["month"] = TextWindow.ReadNumber()
+      TextWindow.Write(" Year : ")
+      salesData[j]["year"] = TextWindow.ReadNumber()
+    EndWhile
+    salesData[j]["salesDate"] = (salesData[j]["day"]+"/"+salesData[j]["month"]+"/"+salesData[j]["year"])
+    table2()
+    TextWindow.WriteLine(" | "+j+"     | "+salesData[j]["salesDate"]+"  | ")
+    
+    'iteamCode
+    TextWindow.WriteLine("")
+    TextWindow.Write(" Please enter ItemCode : ")
+    salesData[j]["itemCode"] = TextWindow.Read() 
+    table2()
+    TextWindow.WriteLine(" | "+j+"     | "+salesData[j]["salesDate"]+"  | "+salesData[j]["itemCode"]+"       | ")
+    
+    'stockQty
+    TextWindow.WriteLine("")
+    TextWindow.Write(" Please enter Sales Quantity : ")
+    salesData[j]["salesQty"] = TextWindow.Read() 
+    table2()
+    TextWindow.WriteLine(" | "+j+"     | "+salesData[j]["salesDate"]+"  | "+salesData[j]["itemCode"]+"       | "+salesData[j]["salesQty"]+"          | ")
+    
+    'repeat for another unit
+    TextWindow.WriteLine("")
+    TextWindow.Write(" You want to input another unit?(1 for yes and 0 for no) : ")
+    repeat = TextWindow.ReadNumber()
+    
+    If repeat = 1 then
+      j = j+1
+      line2 = line2 + 1
+    EndIf
+    
+    If repeat = 0 Then
+      j = j+1
+      table2()
+      j = j-1
+      TextWindow.WriteLine(" |_______|___________|____________|____________|")
+    EndIf
+  EndFor
+  
+EndSub
+
+Sub table2
+  TextWindow.WriteLine(" ______________________________________________")
+  TextWindow.WriteLine(" | Unit  | SalesDate | ItemCode   | SalesQty   |")
+  TextWindow.WriteLine(" |_______|___________|____________|____________|")
+  
+  If j <> 1 Then
+    For x=1 To j-1
+      TextWindow.WriteLine(" | "+x+"     | "+salesData[x]["salesDate"]+"  | "+salesData[x]["itemCode"]+"       | "+salesData[x]["salesQty"]+"          | ")
+    EndFor
+  EndIf
+  
+EndSub
+
+sub saveSalesData
+  File.AppendContents(Program.Directory + "\salesData.txt",line2)
+  File.AppendContents(Program.Directory + "\salesData(backup).txt",line2)
+  For x=1 To j
+    File.AppendContents(Program.Directory + "\salesData.txt",salesData[x])
+    File.AppendContents(Program.Directory + "\salesData(backup).txt",salesData[x])
+  EndFor
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub question_1
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 1")
+  
+  'Reset the Variable
+  total = 0
+  q=0
+  
+  'FOR DAILY
+  
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" Daily")
+  For j=1 To line2
+    If(day[q] <> salesData[j]["day"]) Then
+      q = q+1
+    EndIf
+    day[q] = salesData[j]["day"]
+    total[q]["daily"] = total[q]["daily"] + salesData[j]["salesQty"]
+    For i=1 To line1
+      if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+        total[q]["priceDaily"] = total[q]["priceDaily"] + ( salesData[j]["salesQty"] * itemdata[i]["priceUnit"] )
+      EndIf
+    EndFor
+  EndFor
+  
+  For x=1 To q
+    TextWindow.WriteLine(" In day "+day[x]+", total sales is RM"+total[x]["priceDaily"]+" with total item sales "+total[x]["daily"]+" item")
+  EndFor
+  
+  'FOR WEEKLY
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" Weekly")
+  
+  For j=1 To line2
+    day[j] = salesData[j]["day"]
+    If(day[j] <= 07) Then
+      total[1]["weekly"] = total[1]["weekly"] + salesData[j]["salesQty"]
+      For i=1 To line1
+        if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+          total[1]["priceWeekly"] = total[1]["priceWeekly"] + ( salesData[j]["salesQty"] * itemdata[i]["priceUnit"] ) 
+        EndIf
+      EndFor
+    elseIf(day[j] > 7 and day[q] <=14) Then
+      total[2]["weekly"] = total[2]["weekly"] + salesData[j]["salesQty"]
+      For i=1 To line1
+        if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+          total[2]["priceWeekly"] = total[2]["priceWeekly"] + ( salesData[j]["salesQty"] * itemdata[i]["priceUnit"] )
+        EndIf
+      EndFor
+    elseIf(day[j] > 14 and day[q] <=21) Then
+      total[3]["weekly"] = total[3]["weekly"] + salesData[j]["salesQty"]
+      For i=1 To line1
+        if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+          total[3]["priceWeekly"] = total[3]["priceWeekly"] + ( salesData[j]["salesQty"] * itemdata[i]["priceUnit"] )
+        EndIf
+      EndFor
+    elseIf(day[j] > 21) Then
+      total[4]["weekly"] = total[4]["weekly"] + salesData[j]["salesQty"]
+      For i=1 To line1
+        if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+          total[4]["priceWeekly"] = total[4]["priceWeekly"] + ( salesData[j]["salesQty"] * itemdata[i]["priceUnit"] )
+        EndIf
+      EndFor
+    EndIf
+  EndFor
+  
+  For q=1 To 4
+    TextWindow.WriteLine(" Total sales in week "+q+" is RM"+ total[q]["priceWeekly"]+" with total item sales "+total[q]["weekly"])
+  EndFor
+  
+  'FOR MONTHLY
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" Monthly")
+  q=0
+  For j=1 To line2
+    If(month[q] <> salesData[j]["month"]) Then
+      q = q+1
+    EndIf
+    month[q] = salesData[j]["month"]
+    total[q]["monthly"] = total[q]["monthly"] + salesData[j]["salesQty"]
+    For i=1 To line1
+      if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+        total[q]["priceMonthly"] = total[q]["priceMonthly"] + ( salesData[j]["salesQty"] * itemdata[i]["priceUnit"] )
+      EndIf
+    EndFor 
+  EndFor
+  
+  For x=1 To q
+    TextWindow.WriteLine(" In month "+month[x]+", total sales is RM"+total[x]["priceMonthly"]+" with total item sales "+total[x]["monthly"]+" item")
+  EndFor
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+
+'***********************************************************************************************************************************************************************************************
+Sub question_2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 2")
+  prediction = 0
+  For x=1 To f
+    For i=1 To line1
+      If(convert[x]["itemCode"] = itemdata[i]["itemCode"]) Then
+        If(convert[x]["balance"] < itemdata[i]["stockQty"]/4) Then
+          prediction[i]["High"] = "True"
+          TextWindow.WriteLine(" "+itemdata[i]["itemName"]+"("+convert[x]["itemCode"]+") is a high demand item")
+        Else
+          prediction[i]["Low"] = "True"
+          TextWindow.WriteLine(" "+itemdata[i]["itemName"]+"("+convert[x]["itemCode"]+") is a low demand item")
+        EndIf
+      EndIf
+    EndFor
+  EndFor
+  
+  ''Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub question_3
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 3")
+  For j=1 To line2
+    For i=1 To line1
+      If ( salesData[j]["itemcode"] = itemData[i]["itemCode"] ) then
+        TextWindow.WriteLine(" In "+salesData[j]["salesDate"]+", the item "+itemData[i]["itemName"]+"("+salesData[j]["itemCode"]+") has a balance of "+salesData[j]["balance"])
+      EndIf
+    EndFor
+  EndFor
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub  
+'***********************************************************************************************************************************************************************************************
+Sub question_4
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 4")
+  
+  For x=1 To f
+    For i=1 To line1
+      If(convert[x]["itemCode"] = itemdata[i]["itemCode"]) Then
+        TextWindow.WriteLine(" "+itemdata[i]["itemName"]+"("+convert[x]["itemCode"]+") has balance of "+convert[x]["balance"])  
+      EndIf
+    EndFor
+  EndFor
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub question_5
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 5")
+  For j=1 To line2
+    For i=1 To line1
+      If( salesData[j]["itemcode"] = itemData[i]["itemCode"] and (salesData[j]["balance"] < itemData[i]["stockQty"]*0.1)) Then
+        TextWindow.WriteLine(" The item "+itemdata[i]["itemName"]+"("+salesData[j]["itemcode"]+") has critical stock left")
+      EndIf
+    EndFor
+  EndFor
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub question_6
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 6")
+  For j=1 To line2
+    convertMonth = salesData[j]["month"]
+    For q=1 To 12
+      If (convertMonth = q) Then   
+        convertDay = salesData[j]["day"]
+        If(convertDay<=7) Then
+          For i=1 to line1
+            if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+              total = salesData[j]["salesQty"] * itemdata[i]["priceUnit"]
+              TextWindow.WriteLine(" In month "+convertMonth+", week 1, total sales for "+salesData[j]["itemCode"]+" is RM"+total)
+            EndIf
+          EndFor        
+        ElseIf(convertDay<=14 and convertDay>7) then
+          For i=1 to line1
+            if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+              total = salesData[j]["salesQty"] * itemdata[i]["priceUnit"]
+              TextWindow.WriteLine(" In month "+convertMonth+", week 2, total sales for "+salesData[j]["itemCode"]+" is RM"+total)
+            EndIf
+          EndFor 
+        ElseIf(convertDay<=21 and convertDay>14) then
+          For i=1 to line1
+            if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+              total = salesData[j]["salesQty"] * itemdata[i]["priceUnit"]
+              TextWindow.WriteLine(" In month "+convertMonth+", week 3 , total sales for "+salesData[j]["itemCode"]+" is RM"+total)
+            EndIf
+          EndFor  
+        ElseIf(convertDay>21) then
+          For i=1 to line1
+            if (salesData[j]["itemcode"] = itemData[i]["itemCode"]) then
+              total = salesData[j]["salesQty"] * itemdata[i]["priceUnit"]
+              TextWindow.WriteLine(" In month "+convertMonth+", week 4, total sales for "+salesData[j]["itemCode"]+" is RM"+total)
+            EndIf
+          EndFor 
+        EndIf
+      EndIf
+    EndFor
+  Endfor
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub question_7
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 7")
+  
+  ' Potongan dari source code "Question 2"
+  For x=1 To f
+    For i=1 To line1
+      If(convert[x]["itemCode"] = itemdata[i]["itemCode"]) Then
+        If(convert[x]["balance"] < itemdata[i]["stockQty"]/4) Then
+          prediction[i]["High"] = "True"
+        Else
+          prediction[i]["Low"] = "True"
+        EndIf
+      EndIf
+    EndFor
+  EndFor
+  
+  'Pengiraan untuk "Question 7"
+  For i=1 To line1
+    If(prediction[i]["High"] = "True" ) Then
+      TextWindow.Write(" "+itemdata[i]["itemName"]+"("+itemdata[i]["itemCode"]+") is a very high product. I think thats in the future, the product should be paired along with ") 
+      error = "false"
+      For x=1 To line1  
+        If(error <> "True") then
+          While(prediction[x]["Low"] <> "True")
+            x = Math.GetRandomNumber(line1)   
+          EndWhile
+          TextWindow.WriteLine(itemData[x]["itemName"]+"("+itemdata[x]["itemCode"]+") because that item is a low sales product.")
+          error = "true"  
+        EndIf
+      EndFor
+    EndIf
+  EndFor
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub question_8
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine(" QUESTION 8")
+  average = 0
+  
+  For month=1 To 12
+    For x=1 To f
+      If(month = convert[x]["month"]) Then
+        For i=1 To line1
+          If(convert[x]["itemCode"] = itemdata[i]["itemCode"]) Then
+            average[x]["totalSales"] = (itemdata[i]["stockQty"] - convert[x]["balance"])
+            average[x]["averageSales"] = (average[x]["totalSales"]/30)
+            TextWindow.WriteLine(" In month "+month+", "+itemdata[i]["itemName"]+"("+convert[x]["itemCode"]+") average sales a day is "+average[x]["averageSales"]+" per month")
+          EndIf
+        EndFor
+      EndIf
+    EndFor
+  EndFor
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+'***********************************************************************************************************************************************************************************************
+Sub deleteAllFile
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("******************************( Open file 'itemData(backup)' and 'salesData(backup)' to check back your previous data )******************************")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Do you really wish to delete all the file?(press 'z' to confirm) : ")
+  delete = TextWindow.Read()
+  
+  If(delete = "Z" Or delete = "z") Then
+    File.DeleteFile(Program.Directory + "\itemData.txt")
+    File.DeleteFile(Program.Directory + "\salesData.txt")
+    TextWindow.WriteLine("")
+    TextWindow.WriteLine(" Deleting data SUCCESS")
+  EndIf
+  
+  'Variable "uselessButton" ini tiada fungsi dalam project ni, sekadar untuk halang main menu didisplaykan awal2
+  TextWindow.WriteLine("") 
+  TextWindow.WriteLine(" Deleting data FAILED")
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  TextWindow.Write(" Press ENTER to go back to Main Menu : ")
+  uselessButton = TextWindow.ReadNumber()
+  
+EndSub
+'***********************************************************************************************************************************************************************************************

@@ -1,0 +1,10 @@
+'GraphicsWindow.left=2500
+GraphicsWindow. BackgroundColor="black"
+Graphicswindow.BrushColor="yellow"
+GraphicsWindow. MouseDown=DoSomething
+
+Sub DoSomething
+  x=Graphicswindow.MouseX
+  y=GraphicsWindow.MouseY
+  GraphicsWindow.FillEllipse(x,y, 20,20)
+EndSub

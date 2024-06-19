@@ -1,0 +1,3 @@
+2
+itemName=Rice;itemCode=B001;stockQty=200;priceUnit=4.50;
+itemName=Fish;itemCode=I001;stockQty=400;priceUnit=1.5;

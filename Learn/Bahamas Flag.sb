@@ -1,0 +1,9 @@
+GraphicsWindow.BrushColor="DeepSkyBlue"
+GraphicsWindow. FillRectangle(100,100,500, 300)
+GraphicsWindow.BrushColor="Gold"
+GraphicsWindow. FillRectangle(100,200,500,100)
+GraphicsWindow.BrushColor="Black"
+GraphicsWindow.FillTriangle(100,100,300,250,100,400)
+GraphicsWindow.PenColor="Black"
+GraphicsWindow.PenWidth=3
+GraphicsWindow.DrawRectangle(100,100,500, 300)
